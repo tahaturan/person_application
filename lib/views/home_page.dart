@@ -15,6 +15,15 @@ class _HomePageState extends State<HomePage> {
         title: const Text('AnaSayfa'),
       ),
       body: Container(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.red,
+        tooltip: "Kisi Ekle",
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }

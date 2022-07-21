@@ -16,6 +16,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.blue.shade300,
+          titleTextStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
       ),
       home: const HomePage(),
     );
