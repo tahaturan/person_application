@@ -1,10 +1,6 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:person_application/model/person.dart';
 import 'package:person_application/widgets/homepage_listview_builder.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -35,7 +31,45 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AnaSayfa'),
+        title: search
+            ? TextField(
+                decoration:
+                    const InputDecoration(hintText: "Kisi Ismini Giriniz"),
+                onChanged: (searchResult) {
+                  print("arama sonucu $searchResult");
+                  setState(() {
+                    searchWord = searchResult;
+                  });
+                },
+              )
+            : const Text('AnaSayfa'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                search = true;
+              });
+            },
+            icon: search
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        search = false;
+                        searchWord = "";
+                      });
+                    },
+                    icon: const Icon(Icons.search_off),
+                  )
+                : IconButton(
+                    onPressed: () {
+                      setState(() {
+                        search = true;
+                      });
+                    },
+                    icon: const Icon(Icons.search),
+                  ),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: showAllPersons(),
