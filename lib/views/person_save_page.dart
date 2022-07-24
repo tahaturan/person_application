@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:person_application/helper/person_dao.dart';
 import 'package:person_application/views/home_page.dart';
 
 class PersonSavePage extends StatefulWidget {
@@ -13,7 +14,7 @@ class _PersonSavePageState extends State<PersonSavePage> {
   TextEditingController tfPersonNumber = TextEditingController();
 
   Future<void> personSave(String personName, String personNumber) async {
-    print("$personName - $personNumber kaydedildi");
+    await PersonDao.addPerson(personName, personNumber);
     Navigator.push(
         context,
         MaterialPageRoute(

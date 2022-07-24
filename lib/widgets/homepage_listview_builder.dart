@@ -1,18 +1,19 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:person_application/helper/person_dao.dart';
 import 'package:person_application/model/person.dart';
 import 'package:person_application/views/person_detail_page.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class HomePageListViewBuilder extends StatefulWidget {
-  const HomePageListViewBuilder({
+  final List<Person> personList;
+
+  HomePageListViewBuilder({
     Key? key,
     required this.personList,
   }) : super(key: key);
-
-  final List<Person> personList;
 
   @override
   State<HomePageListViewBuilder> createState() =>
@@ -20,8 +21,8 @@ class HomePageListViewBuilder extends StatefulWidget {
 }
 
 class _HomePageListViewBuilderState extends State<HomePageListViewBuilder> {
-  Future<void> deletePerson(int id) async {
-    debugPrint("$id kisi silindi");
+  Future<void> deletePerson(int personId) async {
+    await PersonDao.deletePerson(personId);
     setState(() {});
   }
 
@@ -82,8 +83,8 @@ class _HomePageListViewBuilderState extends State<HomePageListViewBuilder> {
                       onPressed: (context) {
                         showTopSnackBar(
                           context,
-                          const CustomSnackBar.success(
-                              message: "Kopyalama Basarili"),
+                          CustomSnackBar.success(
+                              message: "${line.name} Kopyalandi"),
                           animationDuration: const Duration(seconds: 3),
                         );
                       },
@@ -94,8 +95,9 @@ class _HomePageListViewBuilderState extends State<HomePageListViewBuilder> {
                     onPressed: (context) {
                       showTopSnackBar(
                         context,
-                        const CustomSnackBar.info(
-                            message: "Indirme Islemi Yapiliyor..."),
+                        CustomSnackBar.info(
+                            message: "${line.name} Verileri indiriliyor..."),
+                        animationDuration: const Duration(seconds: 3),
                       );
                     },
                     backgroundColor: const Color(0xFF0392CF),

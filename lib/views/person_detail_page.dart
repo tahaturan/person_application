@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:person_application/helper/person_dao.dart';
 import 'package:person_application/model/person.dart';
 import 'package:person_application/views/home_page.dart';
 
@@ -15,7 +16,7 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
   TextEditingController tfPersonNumber = TextEditingController();
   Future<void> update(
       int personId, String personName, String personNumber) async {
-    print("$personId li kullanici $personName - $personNumber  guncelledi");
+    await PersonDao.personUpdate(personId, personName, personNumber);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -64,7 +65,7 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          update(widget.person.id, widget.person.name, widget.person.phone);
+          update(widget.person.id, tfPersonName.text, tfPersonNumber.text);
         },
         label: const Text("Guncelle"),
         backgroundColor: Colors.red,
