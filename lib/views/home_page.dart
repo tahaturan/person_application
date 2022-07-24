@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:person_application/model/person.dart';
+import 'package:person_application/views/person_detail_page.dart';
+import 'package:person_application/views/person_save_page.dart';
 import 'package:person_application/widgets/homepage_listview_builder.dart';
 
 class HomePage extends StatefulWidget {
@@ -83,9 +85,15 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PersonSavePage(),
+              ));
+        },
         backgroundColor: Colors.red,
-        tooltip: "Kisi Ekle",
+        tooltip: "Kisi Kayit",
         child: const Icon(
           Icons.add,
           color: Colors.white,
