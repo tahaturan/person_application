@@ -16,7 +16,7 @@ class PersonDao {
   }
 
 //*arama kelimesine gore kisi arama
-  Future<List<Person>> personSearch(String searchWord) async {
+  static Future<List<Person>> personSearch(String searchWord) async {
     var db = await DatabaseHelper.dataBaseConnect();
 
     String sql = "SELECT * FROM kisiler WHERE kisi_ad like '%$searchWord%'";
@@ -29,7 +29,7 @@ class PersonDao {
   }
 
 //*Kisi ekleme
-  Future<void> addPerson(String personName, String personNumber) async {
+  static Future<void> addPerson(String personName, String personNumber) async {
     var db = await DatabaseHelper.dataBaseConnect();
 
     Map<String, dynamic> informations = {};
@@ -40,7 +40,7 @@ class PersonDao {
   }
 
 //* kisi guncelleme
-  Future<void> personUpdate(
+  static Future<void> personUpdate(
       int personId, String personName, String personNumber) async {
     var db = await DatabaseHelper.dataBaseConnect();
 
@@ -54,7 +54,7 @@ class PersonDao {
 
   //*Kisi Silme
 
-  Future<void> deletePerson(int personId) async {
+  static Future<void> deletePerson(int personId) async {
     var db = await DatabaseHelper.dataBaseConnect();
     db.delete("kisiler", where: "kisi_id=?", whereArgs: [personId]);
   }
