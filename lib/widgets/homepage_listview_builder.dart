@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:person_application/model/person.dart';
+import 'package:person_application/views/person_detail_page.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -59,7 +60,14 @@ class _HomePageListViewBuilderState extends State<HomePageListViewBuilder> {
                     icon: Icons.delete_forever_sharp,
                   ),
                   SlidableAction(
-                    onPressed: (context) {},
+                    onPressed: (context) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                PersonDetailPage(person: line),
+                          ));
+                    },
                     backgroundColor: const Color(0xFF21B7CA),
                     foregroundColor: Colors.white,
                     icon: Icons.update_outlined,

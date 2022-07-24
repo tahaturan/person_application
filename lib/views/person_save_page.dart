@@ -14,7 +14,7 @@ class _PersonSavePageState extends State<PersonSavePage> {
 
   Future<void> personSave(String personName, String personNumber) async {
     print("$personName - $personNumber kaydedildi");
-    Navigator.pushReplacement(
+    Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => const HomePage(),

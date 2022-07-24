@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:person_application/model/person.dart';
-import 'package:person_application/views/person_detail_page.dart';
 import 'package:person_application/views/person_save_page.dart';
 import 'package:person_application/widgets/homepage_listview_builder.dart';
 
@@ -29,6 +30,10 @@ class _HomePageState extends State<HomePage> {
     return personList;
   }
 
+  Future<bool> closeApp() async {
+    await exit(0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +50,11 @@ class _HomePageState extends State<HomePage> {
                 },
               )
             : const Text('AnaSayfa'),
+        leading: IconButton(
+            onPressed: () {
+              closeApp();
+            },
+            icon: const Icon(Icons.arrow_back)),
         actions: [
           IconButton(
             onPressed: () {
@@ -73,16 +83,19 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: showAllPersons(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            List<Person> personList = snapshot.data;
-            return HomePageListViewBuilder(personList: personList);
-          } else {
-            return Container();
-          }
-        },
+      body: WillPopScope(
+        onWillPop: closeApp,
+        child: FutureBuilder(
+          future: showAllPersons(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              List<Person> personList = snapshot.data;
+              return HomePageListViewBuilder(personList: personList);
+            } else {
+              return Container();
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
